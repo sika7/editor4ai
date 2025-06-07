@@ -55,23 +55,24 @@ npm install -g @sika7/editor4ai-server
 
 ### 2. 設定ファイル作成
 
-ホームディレクトリに `.mcp-code-config.json` を作成：
+`~/.config/editor4ai/config.yaml` に設定ファイルを配置します。
 
-```json
-{
-  "current_project": "my-project",
-  "projects": {
-    "my-project": {
-      "root": "/path/to/your/project",
-      "scripts": {
-        "fmt": "npm run format",
-        "test": "npm test",
-        "build": "npm run build"
-      }
-    }
-  },
-  "log_path": "/path/to/logs"
-}
+```yaml
+log_path: '/path/to/logs'
+excluded_files:
+  - '**/*.pem'
+  - '**/*.key'
+
+current_project: 'project1'
+projects:
+  project1:
+    src: '/path/to/project1/src'
+    scripts:
+      build: 'npm run build'
+      test: 'npm run test'
+    excluded_files:
+      - '**/.env'
+      - 'logs/**/*.log'
 ```
 
 ### 3. MCPクライアント設定
@@ -84,7 +85,7 @@ npm install -g @sika7/editor4ai-server
 {
   "mcpServers": {
     "editor4ai": {
-      "command": "mcp-code",
+      "command": "editor4ai",
       "args": []
     }
   }
@@ -253,30 +254,18 @@ chmod +x ~/.local/bin/editor4ai
 #### 2. 設定ファイルが見つからない
 ```bash
 # 設定ファイルの場所確認
-echo $HOME/.mcp-code-config.json
+echo $HOME/.config/editor4ai/config.yaml
 
 # 設定ファイルの作成
-touch ~/.mcp-code-config.json
+touch ~/.config/editor4ai/config.yaml
 ```
 
-#### 3. プロジェクトパスが無効
-```json
-{
-  "projects": {
-    "my-project": {
-      "root": "/absolute/path/to/project"  // 絶対パス必須
-    }
-  }
-}
-```
+### ログパス
 
-### デバッグモード
+ログファイルは以下のパスに保存されます：
 
-環境変数 `DEBUG=mcp-code:*` でデバッグログを有効化：
-
-```bash
-DEBUG=mcp-code:* mcp-code
-```
+- システムログとリクエストログ: `~/.local/state/editor4ai/logs/mcp-{YYYY-MM-DD}.log`
+- ログファイルは日付ごとに作成され、30日経過したファイルは自動的に削除されます
 
 ## パフォーマンス
 
