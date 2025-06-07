@@ -1,5 +1,5 @@
 // ライブラリのメインエクスポート
-export { Core } from './lib/main.js'
+export { Core } from './core/main.js'
 
 // 型定義もエクスポート
 export type {
@@ -7,20 +7,20 @@ export type {
   MulchEditLines,
   MulchInsertLines,
   MulchLines,
-} from './lib/files.js'
+} from './core/files.js'
 
 export type {
   DirectoryGrepOptionsInput,
   GrepOptions,
   FileGrepArgs,
   ProjectGrepArgs,
-} from './lib/search.js'
+} from './core/search.js'
 
 // Zod schemas をエクスポート（値として）
 export {
   DirectoryGrepOptionsSchema,
   FileGrepOptionsSchema,
-} from './lib/search.js'
+} from './core/search.js'
 
 // ユーティリティ関数も必要に応じてエクスポート
 export {
@@ -29,7 +29,7 @@ export {
   resolveSafeProjectPath,
   getConfigPath,
   generateRequestId,
-} from './lib/util.js'
+} from './core/util.js'
 
 // ログシステムもエクスポート
-export { createSystemLogger, createRequestErrorLogger } from './lib/logs.js'
+export { createSystemLogger, createRequestErrorLogger } from './core/logs.js'
