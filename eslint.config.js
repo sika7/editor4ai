@@ -17,7 +17,7 @@ export default [
           groups: ['builtin', 'external', 'internal'],
           pathGroups: [
             {
-              pattern: '@mcp-code/**',
+              pattern: '@sika7/editor4ai-lib/**',
               group: 'internal',
               position: 'before',
             },

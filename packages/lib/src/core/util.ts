@@ -14,11 +14,11 @@ export function getHomePath(filePath: string[]): string {
 }
 
 export function getConfigPath(): string {
-  return getHomePath(['.config', 'mcp-code', 'config.yaml'])
+  return getHomePath(['.config', 'editor4ai', 'config.yaml'])
 }
 
 export function getLogPath(filePath: string[]): string {
-  return getHomePath(['.local', 'state', 'mcp-code', ...filePath])
+  return getHomePath(['.local', 'state', 'editor4ai', ...filePath])
 }
 /**
  * 対象ファイルが除外対象にマッチするかをチェックする

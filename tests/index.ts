@@ -1,5 +1,5 @@
 /**
- * mcp-code テスト実行ファイル
+ * Editor4AI テスト実行ファイル
  * 
  * 全テストを一括実行するためのエントリーポイント
  */
@@ -40,7 +40,7 @@ const testGroups: TestGroup[] = [
  * 全テストを実行する
  */
 async function runAllTests() {
-  console.log('=== MCP-Code テスト開始 ===');
+  console.log('=== Editor4AI テスト開始 ===');
   console.log(`全テストグループ数: ${testGroups.length}\n`);
   
   let passedGroups = 0;
@@ -57,7 +57,7 @@ async function runAllTests() {
     }
   }
   
-  console.log('\n=== MCP-Code テスト結果サマリー ===');
+  console.log('\n=== Editor4AI テスト結果サマリー ===');
   console.log(`テストグループ: ${passedGroups}/${testGroups.length} 成功`);
   
   if (passedGroups === testGroups.length) {

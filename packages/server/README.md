@@ -1,16 +1,16 @@
-# @mcp-code/server
+# @sika7/editor4ai-server
 
 MCP Server for file operations and development tools - A powerful MCP (Model Context Protocol) server that provides AI assistants with safe and controlled access to file system operations and development workflows.
 
 ## インストール
 
 ```bash
-npm install @mcp-code/server
+npm install @sika7/editor4ai-server
 ```
 
 ## 概要
 
-`@mcp-code/server`は、AI開発ツール用のMCPサーバーです。`@mcp-code/lib`のコア機能をMCPプロトコル経由で提供し、AI（Claude、GPT等）がファイルシステム操作、検索、開発ワークフローを安全に実行できるインターフェイスを提供します。
+`@sika7/editor4ai-server`は、AI開発ツール用のMCPサーバーです。`@sika7/editor4ai-lib`のコア機能をMCPプロトコル経由で提供し、AI（Claude、GPT等）がファイルシステム操作、検索、開発ワークフローを安全に実行できるインターフェイスを提供します。
 
 ## 主な機能
 
@@ -50,7 +50,7 @@ npm install @mcp-code/server
 ### 1. グローバルインストール
 
 ```bash
-npm install -g @mcp-code/server
+npm install -g @sika7/editor4ai-server
 ```
 
 ### 2. 設定ファイル作成
@@ -83,7 +83,7 @@ npm install -g @mcp-code/server
 ```json
 {
   "mcpServers": {
-    "mcp-code": {
+    "editor4ai": {
       "command": "mcp-code",
       "args": []
     }
@@ -98,7 +98,7 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 
 const transport = new StdioServerTransport({
-  command: 'mcp-code',
+  command: 'editor4ai',
   args: []
 })
 
@@ -247,7 +247,7 @@ tail -f /path/to/logs/error.log
 ls -la /path/to/project
 
 # 実行権限の付与
-chmod +x ~/.local/bin/mcp-code
+chmod +x ~/.local/bin/editor4ai
 ```
 
 #### 2. 設定ファイルが見つからない

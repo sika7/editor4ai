@@ -1,22 +1,22 @@
-# MCP-Code
+# Editor4AI
 
-MCP-Codeは、プログラミング用途に特化したAPIフレームワークで、AIがAPIリクエストを通じてファイル操作を行うための安全なインターフェイスを提供します。
+Editor4AIは、プログラミング用途に特化したAPIフレームワークで、AIがAPIリクエストを通じてファイル操作を行うための安全なインターフェイスを提供します。
 
 ## モノレポ構成
 
-MCP-Codeは以下の2つのパッケージで構成されています：
+Editor4AIは以下の2つのパッケージで構成されています：
 
-- **@mcp-code/lib**: コアライブラリ（軽量な依存関係）
-- **@mcp-code/server**: MCPサーバー（@mcp-code/lib + MCP SDK）
+- **@sika7/editor4ai-lib**: コアライブラリ（軽量な依存関係）
+- **@sika7/editor4ai-server**: MCPサーバー（@sika7/editor4ai-lib + MCP SDK）
 
 ### インストール
 
 ```bash
 # ライブラリのみを使用する場合
-npm install @mcp-code/lib
+npm install @sika7/editor4ai-lib
 
 # MCPサーバーを使用する場合  
-npm install @mcp-code/server
+npm install @sika7/editor4ai-server
 ```
 
 ## 主な機能
@@ -51,14 +51,14 @@ npm install @mcp-code/server
 
 ### ロギング
 
-- システムログの出力（`~/.local/state/mcp-code/logs/system/mcp-system-{YYYY-MM-DD}.log`）
-- リクエストログの出力（`~/.local/state/mcp-code/logs/request/mcp-request-{YYYY-MM-DD}.log`）
+- システムログの出力（`~/.local/state/editor4ai/logs/system/mcp-system-{YYYY-MM-DD}.log`）
+- リクエストログの出力（`~/.local/state/editor4ai/logs/request/mcp-request-{YYYY-MM-DD}.log`）
 - 日付ごとのログファイル管理
 - 古いログファイルの自動クリーンアップ（デフォルト30日）
 
 ## 設定ファイル
 
-MCP-Codeは `~/.config/mcp-code/config.yaml` に設定ファイルを配置します。
+Editor4AIは `~/.config/editor4ai/config.yaml` に設定ファイルを配置します。
 
 ```yaml
 log_path: '/path/to/logs'
@@ -106,7 +106,7 @@ projects:
 
 ログファイルは以下のパスに保存されます：
 
-- システムログとリクエストログ: `~/.local/state/mcp-code/logs/mcp-{YYYY-MM-DD}.log`
+- システムログとリクエストログ: `~/.local/state/editor4ai/logs/mcp-{YYYY-MM-DD}.log`
 - ログファイルは日付ごとに作成され、30日経過したファイルは自動的に削除されます
 
 ## 使い方
@@ -128,7 +128,7 @@ claude desktopなど
   "mcpServers": {
     "mcp_code": {
       "command": "node",
-      "args": ["/your/path/to/directory/mcp-code/dist/server.js"],
+      "args": ["/your/path/to/directory/editor4ai/dist/server.js"],
       "env": {}
     }
   }
@@ -161,7 +161,7 @@ npm run test:script    # スクリプト実行モジュールのテスト
 
 ### プログラムからの利用
 
-MCP-Codeは、Model Context Protocol (MCP) SDKを使用してLLM（大規模言語モデル）と連携するよう設計されています。以下のようなツールが用意されています：
+Editor4AIは、Model Context Protocol (MCP) SDKを使用してLLM（大規模言語モデル）と連携するよう設計されています。以下のようなツールが用意されています：
 
 - directoryTree: プロジェクトのファイルをツリー表示
 - fileList: 指定ディレクトリのファイル一覧を取得
@@ -204,7 +204,7 @@ MCP-Codeは、Model Context Protocol (MCP) SDKを使用してLLM（大規模言�
 
 ## ライセンス
 
-MCP-CodeはApache License 2.0の下で提供されています。詳細については[LICENSE](LICENSE)ファイルを参照してください。
+Editor4AIはApache License 2.0の下で提供されています。詳細については[LICENSE](LICENSE)ファイルを参照してください。
 
 ### ライセンスの特徴
 

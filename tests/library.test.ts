@@ -1,6 +1,6 @@
 /**
  * ライブラリとしての機能テスト（改良版）
- * mcp-codeライブラリのCoreクラスと公開APIの動作を検証
+ * editor4aiライブラリのCoreクラスと公開APIの動作を検証
  */
 
 import {
@@ -136,7 +136,7 @@ async function testFileWriteBasic() {
   
   try {
     const core = new Core(testDir, [])
-    const testContent = 'Hello, mcp-code library!'
+    const testContent = 'Hello, editor4ai library!'
     const fileName = 'test.txt'
     
     const writeResult = await core.writeFile(fileName, testContent)
@@ -152,7 +152,7 @@ async function testFileReadBasic() {
   
   try {
     const core = new Core(testDir, [])
-    const testContent = 'Hello, mcp-code library!'
+    const testContent = 'Hello, editor4ai library!'
     const fileName = 'test.txt'
     
     await createFile(fileName, testContent)

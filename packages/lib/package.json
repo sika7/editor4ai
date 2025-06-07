@@ -1,7 +1,7 @@
 {
-  "name": "@mcp-code/lib",
+  "name": "@sika7/editor4ai-lib",
   "version": "0.1.0",
-  "description": "Core file operations library for MCP-Code",
+  "description": "Core file operations library for Editor4AI",
   "type": "module",
   "license": "Apache-2.0",
   "main": "./dist/index.js",

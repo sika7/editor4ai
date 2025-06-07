@@ -1,16 +1,16 @@
-# @mcp-code/lib
+# @sika7/editor4ai-lib
 
-Core file operations library for MCP-Code - A lightweight TypeScript library for safe and efficient file operations, search functionality, and project management.
+Core file operations library for Editor4AI - A lightweight TypeScript library for safe and efficient file operations, search functionality, and project management.
 
 ## インストール
 
 ```bash
-npm install @mcp-code/lib
+npm install @sika7/editor4ai-lib
 ```
 
 ## 概要
 
-`@mcp-code/lib`は、MCP-Codeプロジェクトのコアライブラリです。ファイルシステム操作、検索機能、差分計算、ログ管理などの基本機能を提供し、他のパッケージから再利用できるように設計されています。
+`@sika7/editor4ai-lib`は、Editor4AIプロジェクトのコアライブラリです。ファイルシステム操作、検索機能、差分計算、ログ管理などの基本機能を提供し、他のパッケージから再利用できるように設計されています。
 
 ## 主な機能
 
@@ -56,7 +56,7 @@ npm install @mcp-code/lib
 ### 基本的な使用方法
 
 ```typescript
-import { Core } from '@mcp-code/lib'
+import { Core } from '@sika7/editor4ai-lib'
 
 // Coreクラスのインスタンス作成
 const core = new Core('/path/to/project')
@@ -77,7 +77,7 @@ const results = await core.projectGrep('function', {
 ### 型安全な検索オプション
 
 ```typescript
-import { DirectoryGrepOptionsSchema, type DirectoryGrepOptionsInput } from '@mcp-code/lib'
+import { DirectoryGrepOptionsSchema, type DirectoryGrepOptionsInput } from '@sika7/editor4ai-lib'
 
 const searchOptions: DirectoryGrepOptionsInput = {
   regex: true,
@@ -95,7 +95,7 @@ const validatedOptions = DirectoryGrepOptionsSchema.parse(searchOptions)
 ### ログの設定
 
 ```typescript
-import { createSystemLogger, createRequestErrorLogger } from '@mcp-code/lib'
+import { createSystemLogger, createRequestErrorLogger } from '@sika7/editor4ai-lib'
 
 const systemLog = createSystemLogger('/path/to/logs')
 const errorLog = createRequestErrorLogger('/path/to/logs')

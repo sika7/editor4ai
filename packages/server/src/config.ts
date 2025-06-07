@@ -3,7 +3,7 @@ import { readFileSync, existsSync } from 'fs'
 import { parse } from 'yaml'
 import { z } from 'zod'
 
-import { createSystemLogger, getConfigPath } from '@mcp-code/lib'
+import { createSystemLogger, getConfigPath } from '@sika7/editor4ai-lib'
 
 const CONFIG_PATH = getConfigPath()
 const configSchema = z.object({

@@ -1,7 +1,7 @@
 ---
-title: 'mcp-code テスト作成のガイドライン'
+title: 'editor4ai テスト作成のガイドライン'
 author: 'sika7'
-tags: ['mcp-code', 'テスト作成', 'ガイドライン']
+tags: ['editor4ai', 'テスト作成', 'ガイドライン']
 date: 2025-05-26
 audience: ['開発者', 'AIエージェント']
 ---

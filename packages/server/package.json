@@ -1,12 +1,12 @@
 {
-  "name": "@mcp-code/server",
+  "name": "@sika7/editor4ai-server",
   "version": "0.1.0",
   "description": "MCP Server for file operations and development tools",
   "type": "module",
   "license": "Apache-2.0",
   "main": "./dist/server.js",
   "bin": {
-    "mcp-code": "./dist/server.js"
+    "editor4ai": "./dist/server.js"
   },
   "files": [
     "dist",
@@ -20,7 +20,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@mcp-code/lib": "*",
+    "@sika7/editor4ai-lib": "*",
     "@modelcontextprotocol/sdk": "^1.11.4",
     "zod": "^3.25.7"
   },

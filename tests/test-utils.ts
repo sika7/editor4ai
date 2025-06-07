@@ -47,7 +47,7 @@ export interface AssertionError extends Error {
 export async function createTestEnvironment(testSuiteName: string): Promise<TestEnvironment> {
   const timestamp = Date.now();
   const randomSuffix = Math.random().toString(36).substring(7);
-  const testDir = path.join(os.tmpdir(), `mcp-code-test-${testSuiteName}-${timestamp}-${randomSuffix}`);
+  const testDir = path.join(os.tmpdir(), `editor4ai-test-${testSuiteName}-${timestamp}-${randomSuffix}`);
 
   // テストディレクトリの作成
   await fs.mkdir(testDir, { recursive: true });

@@ -143,7 +143,7 @@ async function testResolveSafeProjectPath() {
 
 async function testIsAllowedExtension() {
   // テスト用の一時ファイルを作成
-  const tempDir = path.join(os.tmpdir(), 'mcp-code-test');
+  const tempDir = path.join(os.tmpdir(), 'editor4ai-test');
   if (!existsSync(tempDir)) {
     mkdirSync(tempDir, { recursive: true });
   }

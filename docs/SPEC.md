@@ -1,5 +1,5 @@
 ---
-title: "mcp-code 設計仕様"
+title: "editor4ai 設計仕様"
 author: "sika7"
 tags: ["AST", "アーキテクチャ", "設計仕様"]
 date: 2025-05-30
@@ -47,7 +47,7 @@ audience: ["開発者", "AIエージェント"]
     └── api_tests.rs            # APIの統合テスト
 ```
 
-設定ファイルを ~/.config/mcp-code/config.yaml で取り扱う
+設定ファイルを ~/.config/editor4ai/config.yaml で取り扱う
 
 ## 設定ファイル構造 (`config.yaml`)
 
