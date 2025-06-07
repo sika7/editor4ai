@@ -20,7 +20,7 @@ import {
   isExcluded,
   resolveSafeProjectPath,
   createSystemLogger,
-} from '../src/index.js'
+} from '../packages/lib/src/index.js'
 
 // =============================================================================
 // Coreクラスのインスタンス化テスト

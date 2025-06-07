@@ -1,7 +1,7 @@
+import { createSystemLogger } from '@mcp-code/lib'
 import { CallToolResult, TextContent } from '@modelcontextprotocol/sdk/types'
 
 import { detectFileTypeWithParser } from './data-parse.js'
-import { createSystemLogger } from './lib/logs.js'
 
 // 共通のエラーコード定義
 export enum MCPErrorCode {

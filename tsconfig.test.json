@@ -2,7 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "rootDir": ".",
-    "noEmit": true
+    "noEmit": true,
+    "composite": false
   },
-  "include": ["src/**/*", "tests/**/*"]
+  "include": ["tests/**/*", "packages/*/src/**/*"],
+  "references": [
+    { "path": "./packages/lib" },
+    { "path": "./packages/server" }
+  ]
 }

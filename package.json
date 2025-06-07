@@ -4,36 +4,15 @@
   "private": true,
   "type": "module",
   "license": "Apache-2.0",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./server": {
-      "import": "./dist/server.js"
-    },
-    "./lib": {
-      "import": "./dist/lib/main.js",
-      "types": "./dist/lib/main.d.ts"
-    }
-  },
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
+  "workspaces": [
+    "packages/*"
   ],
-  "bin": {
-    "mcp-code": "./dist/server.js"
-  },
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/server.js",
-    "dev": "npx @modelcontextprotocol/inspector npx tsx src/server.ts",
+    "build": "npm run build --workspaces",
+    "clean": "npm run clean --workspaces",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
-    "fmt": "prettier --write 'src/**/*.ts' && npm run lint:fix",
+    "fmt": "prettier --write 'packages/*/src/**/*.ts' && npm run lint:fix",
     "test": "npx tsx tests/index.ts",
     "test:config": "npx tsx tests/config.test.ts",
     "test:diff": "npx tsx tests/diff.test.ts",
@@ -46,23 +25,8 @@
     "test:search": "npx tsx tests/search.test.ts",
     "test:library": "npx tsx tests/library.test.ts"
   },
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.11.4",
-    "date-fns": "^4.1.0",
-    "fast-xml-parser": "^5.2.3",
-    "fs-extra": "^11.3.0",
-    "js-yaml": "^4.1.0",
-    "minimatch": "^10.0.1",
-    "papaparse": "^5.5.3",
-    "toml": "^3.0.0",
-    "yaml": "^2.8.0",
-    "zod": "^3.25.7"
-  },
   "devDependencies": {
-    "@types/fs-extra": "^11.0.4",
-    "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.15.19",
-    "@types/papaparse": "^5.3.16",
     "eslint": "^9.27.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-import": "^2.31.0",

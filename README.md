@@ -2,6 +2,23 @@
 
 MCP-Codeは、プログラミング用途に特化したAPIフレームワークで、AIがAPIリクエストを通じてファイル操作を行うための安全なインターフェイスを提供します。
 
+## モノレポ構成
+
+MCP-Codeは以下の2つのパッケージで構成されています：
+
+- **@mcp-code/lib**: コアライブラリ（軽量な依存関係）
+- **@mcp-code/server**: MCPサーバー（@mcp-code/lib + MCP SDK）
+
+### インストール
+
+```bash
+# ライブラリのみを使用する場合
+npm install @mcp-code/lib
+
+# MCPサーバーを使用する場合  
+npm install @mcp-code/server
+```
+
 ## 主な機能
 
 ### ファイル操作

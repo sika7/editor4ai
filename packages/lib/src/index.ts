@@ -16,6 +16,7 @@ export {
   convertToRelativePaths,
   isExcluded,
   resolveSafeProjectPath,
+  getConfigPath,
 } from './lib/util.js'
 
 // ログシステムもエクスポート

@@ -1,10 +1,9 @@
 import { readFileSync, existsSync } from 'fs'
 
+import { createSystemLogger, getConfigPath } from '@mcp-code/lib'
 import { parse } from 'yaml'
 import { z } from 'zod'
 
-import { createSystemLogger } from './lib/logs.js'
-import { getConfigPath } from './lib/util.js'
 
 const CONFIG_PATH = getConfigPath()
 const configSchema = z.object({

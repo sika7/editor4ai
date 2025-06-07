@@ -14,20 +14,21 @@
  * limitations under the License.
  */
 
+import {
+  createRequestErrorLogger,
+  createSystemLogger,
+  Core,
+  DirectoryGrepOptionsSchema,
+  FileGrepArgs,
+  FileGrepOptionsSchema,
+  ProjectGrepArgs,
+  generateRequestId,
+} from '@mcp-code/lib'
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { z } from 'zod'
 
 import { loadConfig } from './config.js'
-import { createRequestErrorLogger, createSystemLogger } from './lib/logs.js'
-import { Core } from './lib/main.js'
-import {
-  DirectoryGrepOptionsSchema,
-  FileGrepArgs,
-  FileGrepOptionsSchema,
-  ProjectGrepArgs,
-} from './lib/search.js'
-import { generateRequestId } from './lib/util.js'
 import {
   arrayToTextContent,
   createMpcErrorResponse,
