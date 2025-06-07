@@ -3,7 +3,7 @@
  */
 
 import { assertEqual, isMainModule, createTestEnvironment, runTestSuite } from './test-utils';
-import { loadConfig } from '../src/config';
+import { loadConfig } from '../packages/server/src/config.js';
 
 async function testLoadValidConfig() {
   // テスト環境のセットアップ

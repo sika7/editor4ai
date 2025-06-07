@@ -14,7 +14,7 @@ import {
   resolveSafeProjectPath,
   isAllowedExtension,
   convertToRelativePaths
-} from '../src/lib/util';
+} from '../packages/lib/src/core/util.js';
 
 async function testIsExcluded() {
   // テストパスとパターン

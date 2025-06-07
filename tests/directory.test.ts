@@ -15,7 +15,7 @@ import {
   runTestSuite,
   isMainModule,
 } from './test-utils'
-import { createDirectory, generateDirectoryTree, removeDirectory } from '../src/lib/directory'
+import { createDirectory, generateDirectoryTree, removeDirectory } from '../packages/lib/src/core/directory.js'
 
 async function testCreateDirectory() {
   // テスト環境のセットアップ

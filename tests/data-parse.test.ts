@@ -11,7 +11,7 @@ import {
   runTestSuite,
   isMainModule,
 } from './test-utils';
-import { detectFileTypeWithParser } from '../src/data-parse';
+import { detectFileTypeWithParser } from '../packages/server/src/data-parse.js';
 
 async function testValidJsonParsing() {
   const { cleanup } = await createTestEnvironment('json-parsing');
