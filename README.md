@@ -115,8 +115,8 @@ projects:
 
 ```bash
 # または、ソースからインストール
-git clone https://github.com/your-username/mcp-code.git
-cd mcp-code
+git clone https://github.com/sika7/editor4ai.git
+cd editor4ai
 npm install
 npm run build
 ```
@@ -126,9 +126,9 @@ claude desktopなど
 ```json
 {
   "mcpServers": {
-    "mcp_code": {
+    "editor4ai": {
       "command": "node",
-      "args": ["/your/path/to/directory/editor4ai/dist/server.js"],
+      "args": ["/your/path/to/directory/editor4ai/packages/dist/server.js"],
       "env": {}
     }
   }
