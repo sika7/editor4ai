@@ -9,7 +9,18 @@ export type {
   MulchLines,
 } from './lib/files.js'
 
-export type { DirectoryGrepOptionsInput, GrepOptions } from './lib/search.js'
+export type {
+  DirectoryGrepOptionsInput,
+  GrepOptions,
+  FileGrepArgs,
+  ProjectGrepArgs,
+} from './lib/search.js'
+
+// Zod schemas をエクスポート（値として）
+export {
+  DirectoryGrepOptionsSchema,
+  FileGrepOptionsSchema,
+} from './lib/search.js'
 
 // ユーティリティ関数も必要に応じてエクスポート
 export {
@@ -17,7 +28,8 @@ export {
   isExcluded,
   resolveSafeProjectPath,
   getConfigPath,
+  generateRequestId,
 } from './lib/util.js'
 
 // ログシステムもエクスポート
-export { createSystemLogger } from './lib/logs.js'
+export { createSystemLogger, createRequestErrorLogger } from './lib/logs.js'

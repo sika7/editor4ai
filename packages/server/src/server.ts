@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
+import { z } from 'zod'
+
 import {
   createRequestErrorLogger,
   createSystemLogger,
@@ -24,9 +28,6 @@ import {
   ProjectGrepArgs,
   generateRequestId,
 } from '@mcp-code/lib'
-import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
-import { z } from 'zod'
 
 import { loadConfig } from './config.js'
 import {

@@ -30,7 +30,8 @@
     "minimatch": "^10.0.1",
     "papaparse": "^5.5.3",
     "toml": "^3.0.0",
-    "yaml": "^2.8.0"
+    "yaml": "^2.8.0",
+    "zod": "^3.25.7"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",

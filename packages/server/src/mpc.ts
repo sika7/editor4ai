@@ -1,5 +1,6 @@
-import { createSystemLogger } from '@mcp-code/lib'
 import { CallToolResult, TextContent } from '@modelcontextprotocol/sdk/types'
+
+import { createSystemLogger } from '@mcp-code/lib'
 
 import { detectFileTypeWithParser } from './data-parse.js'
 
