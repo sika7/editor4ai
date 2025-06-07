@@ -14,13 +14,13 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "npm run build -w @mcp-code/lib && tsc",
+    "build": "tsc",
     "start": "node dist/server.js",
     "dev": "npx @modelcontextprotocol/inspector npx tsx src/server.ts",
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@mcp-code/lib": "workspace:*",
+    "@mcp-code/lib": "*",
     "@modelcontextprotocol/sdk": "^1.11.4",
     "zod": "^3.25.7"
   },

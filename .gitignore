@@ -4,3 +4,26 @@ node_modules/
 dist/
 config.yaml
 logs/
+
+# TypeScript incremental compilation info
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Build outputs
+build/
+coverage/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# npm
+npm-debug.log*
+package-lock.json
+
+# Environment files
+.env
+.env.local
+.env.*.local

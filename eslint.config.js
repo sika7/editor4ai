@@ -2,6 +2,9 @@ import eslintPluginImport from 'eslint-plugin-import'
 import tseslint from 'typescript-eslint'
 
 export default [
+  {
+    ignores: ['**/dist/**', '**/node_modules/**', '**/coverage/**'],
+  },
   ...tseslint.configs.recommended,
   {
     plugins: {
@@ -13,6 +16,11 @@ export default [
         {
           groups: ['builtin', 'external', 'internal'],
           pathGroups: [
+            {
+              pattern: '@mcp-code/**',
+              group: 'internal',
+              position: 'before',
+            },
             {
               pattern: 'fs',
               group: 'builtin',

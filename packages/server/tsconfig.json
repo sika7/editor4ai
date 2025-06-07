@@ -16,9 +16,9 @@
     "allowSyntheticDefaultImports": true,
     "composite": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"],
   "references": [
     { "path": "../lib" }
-  ]
+  ],
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
