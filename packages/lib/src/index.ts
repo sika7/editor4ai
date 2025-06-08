@@ -1,5 +1,23 @@
 // ライブラリのメインエクスポート
-export { Core } from './core/main.js'
+export {
+  Core,
+  checkExcludedFiles,
+  isExcludedFiles,
+  directoryTreeCore,
+  createDirectoryCore,
+  removeDirectoryCore,
+  listFilesCore,
+  findInFileCore,
+  projectGrepCore,
+  readFileCore,
+  writeFileCore,
+  deleteFileCore,
+  fileMoveOrRenameCore,
+  mulchInsertLinesInFileCore,
+  mulchEditLinesInFileCore,
+  mulchDeleteLinesInFileCore,
+  runScriptCore,
+} from './core/main.js'
 
 // 型定義もエクスポート
 export type {
