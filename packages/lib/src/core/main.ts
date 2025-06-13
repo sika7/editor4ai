@@ -33,30 +33,34 @@ import {
 
 const log = createSystemLogger()
 
-export function checkExcludedFiles(filePath: string, excludedPath: string[]) {
+export function checkExcludedFiles(
+  filePath: string,
+  excludedPattern: string[],
+) {
   // 除外ファイルをチェック
-  if (isExcluded(filePath, excludedPath)) {
+  if (isExcluded(filePath, excludedPattern)) {
     throw new Error('指定されたパスはツールにより制限されています')
   }
 }
 
-export function isExcludedFiles(filePath: string, excludedPath: string[]) {
+export function isExcludedFiles(filePath: string, excludedPattern: string[]) {
   // 除外ファイルをチェック
-  if (isExcluded(filePath, excludedPath)) return true
+  if (isExcluded(filePath, excludedPattern)) return true
   return false
 }
 
-export async function directoryTreeCore(
-  path: string,
-  exclude: string[],
-  projectPath: string,
-  excludedPath: string[],
-) {
+export async function directoryTreeCore(params: {
+  path: string
+  exclude: string[]
+  projectPath: string
+  excludedPattern: string[]
+}) {
+  const { path, exclude, projectPath, excludedPattern } = params
   // プロジェクトルートのパスに丸める
   const safeFilePath = resolveSafeProjectPath(path, projectPath)
-  checkExcludedFiles(safeFilePath, excludedPath)
+  checkExcludedFiles(safeFilePath, excludedPattern)
 
-  const mergeExcluded = [...excludedPath, ...exclude]
+  const mergeExcluded = [...excludedPattern, ...exclude]
   log({ logLevel: 'INFO', message: '除外パターン', data: mergeExcluded })
   const tree = await generateDirectoryTree(safeFilePath, {
     exclude: mergeExcluded,
@@ -67,45 +71,48 @@ export async function directoryTreeCore(
   return result
 }
 
-export async function createDirectoryCore(
-  path: string,
-  projectPath: string,
-  excludedPath: string[],
-) {
+export async function createDirectoryCore(params: {
+  path: string
+  projectPath: string
+  excludedPattern: string[]
+}) {
+  const { path, projectPath, excludedPattern } = params
   // プロジェクトルートのパスに丸める
   const safeFilePath = resolveSafeProjectPath(path, projectPath)
-  checkExcludedFiles(safeFilePath, excludedPath)
+  checkExcludedFiles(safeFilePath, excludedPattern)
 
   const result = await createDirectory(safeFilePath)
   return result
 }
 
-export async function removeDirectoryCore(
-  path: string,
-  projectPath: string,
-  excludedPath: string[],
-) {
+export async function removeDirectoryCore(params: {
+  path: string
+  projectPath: string
+  excludedPattern: string[]
+}) {
+  const { path, projectPath, excludedPattern } = params
   // プロジェクトルートのパスに丸める
   const safeFilePath = resolveSafeProjectPath(path, projectPath)
-  checkExcludedFiles(safeFilePath, excludedPath)
+  checkExcludedFiles(safeFilePath, excludedPattern)
 
   const result = await removeDirectory(safeFilePath)
   return result
 }
 
-export async function listFilesCore(
-  path: string,
-  projectPath: string,
-  excludedPath: string[],
-  filter: string = '',
-) {
+export async function listFilesCore(params: {
+  path: string
+  projectPath: string
+  excludedPattern: string[]
+  filter?: string
+}) {
+  const { path, projectPath, excludedPattern, filter = '' } = params
   // プロジェクトルートのパスに丸める
   const safeFilePath = resolveSafeProjectPath(path, projectPath)
-  checkExcludedFiles(safeFilePath, excludedPath)
+  checkExcludedFiles(safeFilePath, excludedPattern)
 
   const files = await listFiles(safeFilePath, filter)
   // 許可されたファイルのみ表示
-  const items = files.filter(item => !isExcludedFiles(item, excludedPath))
+  const items = files.filter(item => !isExcludedFiles(item, excludedPattern))
 
   // 相対パスにして返す。
   const result = convertToRelativePaths(items.join('\n'), projectPath)
@@ -113,16 +120,17 @@ export async function listFilesCore(
   return result
 }
 
-export async function findInFileCore(
-  path: string,
-  pattern: string,
-  projectPath: string,
-  excludedPath: string[],
-  options: GrepOptions = {},
-) {
+export async function findInFileCore(params: {
+  path: string
+  pattern: string
+  projectPath: string
+  excludedPattern: string[]
+  options?: GrepOptions
+}) {
+  const { path, pattern, projectPath, excludedPattern, options = {} } = params
   // プロジェクトルートのパスに丸める
   const safeFilePath = resolveSafeProjectPath(path, projectPath)
-  checkExcludedFiles(safeFilePath, excludedPath)
+  checkExcludedFiles(safeFilePath, excludedPattern)
 
   const findResult = await fileGrep(safeFilePath, pattern, options)
 
@@ -133,19 +141,20 @@ export async function findInFileCore(
   return result
 }
 
-export async function projectGrepCore(
-  pattern: string,
-  projectPath: string,
-  excludedPath: string[],
-  options: DirectoryGrepOptionsInput = {},
-) {
+export async function projectGrepCore(params: {
+  pattern: string
+  projectPath: string
+  excludedPattern: string[]
+  options?: DirectoryGrepOptionsInput
+}) {
+  const { pattern, projectPath, excludedPattern, options = {} } = params
   // プロジェクトルートのパスに丸める
   const safeFilePath = resolveSafeProjectPath('/', projectPath)
   const findResult = await projectGrep(safeFilePath, pattern, options)
 
   // 除外指定ファイルは見えないようにする
   findResult.results = findResult.results.filter(
-    item => !isExcludedFiles(item.filePath, excludedPath),
+    item => !isExcludedFiles(item.filePath, excludedPattern),
   )
 
   const text = JSON.stringify(findResult, null, 2)
@@ -155,30 +164,32 @@ export async function projectGrepCore(
   return result
 }
 
-export async function readFileCore(
-  path: string,
-  projectPath: string,
-  excludedPath: string[],
-  options: ReadFileOptions = {},
-) {
+export async function readFileCore(params: {
+  path: string
+  projectPath: string
+  excludedPattern: string[]
+  options?: ReadFileOptions
+}) {
+  const { path, projectPath, excludedPattern, options = {} } = params
   // プロジェクトルートのパスに丸める
   const safeFilePath = resolveSafeProjectPath(path, projectPath)
-  checkExcludedFiles(safeFilePath, excludedPath)
+  checkExcludedFiles(safeFilePath, excludedPattern)
 
   const results = await readTextFileWithOptions(safeFilePath, options)
 
   return results
 }
 
-export async function writeFileCore(
-  path: string,
-  content: string,
-  projectPath: string,
-  excludedPath: string[],
-) {
+export async function writeFileCore(params: {
+  path: string
+  content: string
+  projectPath: string
+  excludedPattern: string[]
+}) {
+  const { path, content, projectPath, excludedPattern } = params
   // プロジェクトルートのパスに丸める
   const safeFilePath = resolveSafeProjectPath(path, projectPath)
-  checkExcludedFiles(safeFilePath, excludedPath)
+  checkExcludedFiles(safeFilePath, excludedPattern)
 
   const message = await writeTextFile(safeFilePath, content)
   // 相対パスにして返す。
@@ -187,14 +198,15 @@ export async function writeFileCore(
   return result
 }
 
-export async function deleteFileCore(
-  path: string,
-  projectPath: string,
-  excludedPath: string[],
-) {
+export async function deleteFileCore(params: {
+  path: string
+  projectPath: string
+  excludedPattern: string[]
+}) {
+  const { path, projectPath, excludedPattern } = params
   // プロジェクトルートのパスに丸める
   const safeFilePath = resolveSafeProjectPath(path, projectPath)
-  checkExcludedFiles(safeFilePath, excludedPath)
+  checkExcludedFiles(safeFilePath, excludedPattern)
 
   const message = await deleteFile(safeFilePath)
   const result = convertToRelativePaths(message, projectPath)
@@ -202,33 +214,41 @@ export async function deleteFileCore(
   return result
 }
 
-export async function fileMoveOrRenameCore(
-  srcPath: string,
-  distPath: string,
-  projectPath: string,
-  excludedPath: string[],
-) {
+export async function fileMoveOrRenameCore(params: {
+  srcPath: string
+  distPath: string
+  projectPath: string
+  excludedPattern: string[]
+}) {
+  const { srcPath, distPath, projectPath, excludedPattern } = params
   // プロジェクトルートのパスに丸める
   const safeSrcPath = resolveSafeProjectPath(srcPath, projectPath)
-  checkExcludedFiles(safeSrcPath, excludedPath)
+  checkExcludedFiles(safeSrcPath, excludedPattern)
   const safeDistPath = resolveSafeProjectPath(distPath, projectPath)
-  checkExcludedFiles(safeDistPath, excludedPath)
+  checkExcludedFiles(safeDistPath, excludedPattern)
 
   const message = await fileMoveOrRename(safeSrcPath, safeDistPath)
   const result = convertToRelativePaths(message, projectPath)
   return result
 }
 
-export async function mulchInsertLinesInFileCore(
-  path: string,
-  editlines: MulchInsertLines[],
-  projectPath: string,
-  excludedPath: string[],
-  afterMode: boolean = false,
-) {
+export async function mulchInsertLinesInFileCore(params: {
+  path: string
+  editlines: MulchInsertLines[]
+  projectPath: string
+  excludedPattern: string[]
+  afterMode?: boolean
+}) {
+  const {
+    path,
+    editlines,
+    projectPath,
+    excludedPattern,
+    afterMode = false,
+  } = params
   // プロジェクトルートのパスに丸める
   const safeFilePath = resolveSafeProjectPath(path, projectPath)
-  checkExcludedFiles(safeFilePath, excludedPath)
+  checkExcludedFiles(safeFilePath, excludedPattern)
 
   const message = await mulchInsertLines(safeFilePath, editlines, afterMode)
   const result = convertToRelativePaths(message, projectPath)
@@ -236,16 +256,23 @@ export async function mulchInsertLinesInFileCore(
   return result
 }
 
-export async function mulchEditLinesInFileCore(
-  path: string,
-  editlines: MulchEditLines[],
-  projectPath: string,
-  excludedPath: string[],
-  previewFlg: boolean = true,
-) {
+export async function mulchEditLinesInFileCore(params: {
+  path: string
+  editlines: MulchEditLines[]
+  projectPath: string
+  excludedPattern: string[]
+  previewFlg?: boolean
+}) {
+  const {
+    path,
+    editlines,
+    projectPath,
+    excludedPattern,
+    previewFlg = true,
+  } = params
   // プロジェクトルートのパスに丸める
   const safeFilePath = resolveSafeProjectPath(path, projectPath)
-  checkExcludedFiles(safeFilePath, excludedPath)
+  checkExcludedFiles(safeFilePath, excludedPattern)
 
   const result = await mulchEditLines(safeFilePath, editlines, previewFlg)
   result.message = convertToRelativePaths(result.message, projectPath)
@@ -253,15 +280,16 @@ export async function mulchEditLinesInFileCore(
   return result
 }
 
-export async function mulchDeleteLinesInFileCore(
-  path: string,
-  editlines: MulchLines[],
-  projectPath: string,
-  excludedPath: string[],
-): Promise<string> {
+export async function mulchDeleteLinesInFileCore(params: {
+  path: string
+  editlines: MulchLines[]
+  projectPath: string
+  excludedPattern: string[]
+}): Promise<string> {
+  const { path, editlines, projectPath, excludedPattern } = params
   // プロジェクトルートのパスに丸める
   const safeFilePath = resolveSafeProjectPath(path, projectPath)
-  checkExcludedFiles(safeFilePath, excludedPath)
+  checkExcludedFiles(safeFilePath, excludedPattern)
 
   const message = await mulchDeleteLines(safeFilePath, editlines)
   const result = convertToRelativePaths(message, projectPath)
@@ -269,11 +297,12 @@ export async function mulchDeleteLinesInFileCore(
   return result
 }
 
-export async function runScriptCore(
-  name: string,
-  scriptCmd: string,
-  projectPath: string,
-) {
+export async function runScriptCore(params: {
+  name: string
+  scriptCmd: string
+  projectPath: string
+}) {
+  const { name, scriptCmd, projectPath } = params
   const result = await runScript(name, scriptCmd, projectPath)
 
   return result
@@ -281,91 +310,103 @@ export async function runScriptCore(
 
 /**
  * Core - 便利なラッパークラス
- * projectPathとexcludedPathを保持し、関数呼び出しを簡潔にします
+ * projectPathとexcludedPatternを保持し、関数呼び出しを簡潔にします
  */
 export class Core {
   private projectPath: string
-  private excludedPath: string[]
+  private excludedPattern: string[]
 
-  constructor(projectPath: string, excludedPath: string[]) {
+  constructor(projectPath: string, excludedPattern: string[]) {
     this.projectPath = projectPath
-    this.excludedPath = excludedPath
+    this.excludedPattern = excludedPattern
   }
 
   async directoryTree(path: string, exclude: string[]) {
-    return await directoryTreeCore(
+    return await directoryTreeCore({
       path,
       exclude,
-      this.projectPath,
-      this.excludedPath,
-    )
+      projectPath: this.projectPath,
+      excludedPattern: this.excludedPattern,
+    })
   }
 
   async createDirectory(path: string) {
-    return await createDirectoryCore(path, this.projectPath, this.excludedPath)
+    return await createDirectoryCore({
+      path,
+      projectPath: this.projectPath,
+      excludedPattern: this.excludedPattern,
+    })
   }
 
   async removeDirectory(path: string) {
-    return await removeDirectoryCore(path, this.projectPath, this.excludedPath)
+    return await removeDirectoryCore({
+      path,
+      projectPath: this.projectPath,
+      excludedPattern: this.excludedPattern,
+    })
   }
 
   async listFiles(path: string, filter: string = '') {
-    return await listFilesCore(
+    return await listFilesCore({
       path,
-      this.projectPath,
-      this.excludedPath,
+      projectPath: this.projectPath,
+      excludedPattern: this.excludedPattern,
       filter,
-    )
+    })
   }
 
   async findInFile(path: string, pattern: string, options: GrepOptions = {}) {
-    return await findInFileCore(
+    return await findInFileCore({
       path,
       pattern,
-      this.projectPath,
-      this.excludedPath,
+      projectPath: this.projectPath,
+      excludedPattern: this.excludedPattern,
       options,
-    )
+    })
   }
 
   async projectGrep(pattern: string, options: DirectoryGrepOptionsInput = {}) {
-    return await projectGrepCore(
+    return await projectGrepCore({
       pattern,
-      this.projectPath,
-      this.excludedPath,
+      projectPath: this.projectPath,
+      excludedPattern: this.excludedPattern,
       options,
-    )
+    })
   }
 
   async readFile(path: string, options: ReadFileOptions = {}) {
-    return await readFileCore(
+    return await readFileCore({
       path,
-      this.projectPath,
-      this.excludedPath,
+      projectPath: this.projectPath,
+      excludedPattern: this.excludedPattern,
       options,
-    )
+    })
   }
 
   async writeFile(path: string, content: string) {
-    return await writeFileCore(
+    return await writeFileCore({
       path,
       content,
-      this.projectPath,
-      this.excludedPath,
-    )
+      projectPath: this.projectPath,
+      excludedPattern: this.excludedPattern,
+    })
   }
 
   async deleteFile(path: string) {
-    return await deleteFileCore(path, this.projectPath, this.excludedPath)
+    return await deleteFileCore({
+      path,
+      projectPath: this.projectPath,
+      excludedPattern: this.excludedPattern,
+    })
   }
 
   async fileMoveOrRename(srcPath: string, distPath: string) {
-    return await fileMoveOrRenameCore(
+    return await fileMoveOrRenameCore({
       srcPath,
       distPath,
-      this.projectPath,
-      this.excludedPath,
-    )
+      projectPath: this.projectPath,
+      excludedPattern: this.excludedPattern,
+    })
   }
 
   async mulchInsertLinesInFile(
@@ -373,13 +414,13 @@ export class Core {
     editlines: MulchInsertLines[],
     afterMode: boolean = false,
   ) {
-    return await mulchInsertLinesInFileCore(
+    return await mulchInsertLinesInFileCore({
       path,
       editlines,
-      this.projectPath,
-      this.excludedPath,
+      projectPath: this.projectPath,
+      excludedPattern: this.excludedPattern,
       afterMode,
-    )
+    })
   }
 
   async mulchEditLinesInFile(
@@ -387,28 +428,32 @@ export class Core {
     editlines: MulchEditLines[],
     previewFlg: boolean = true,
   ) {
-    return await mulchEditLinesInFileCore(
+    return await mulchEditLinesInFileCore({
       path,
       editlines,
-      this.projectPath,
-      this.excludedPath,
+      projectPath: this.projectPath,
+      excludedPattern: this.excludedPattern,
       previewFlg,
-    )
+    })
   }
 
   async mulchDeleteLinesInFile(
     path: string,
     editlines: MulchLines[],
   ): Promise<string> {
-    return await mulchDeleteLinesInFileCore(
+    return await mulchDeleteLinesInFileCore({
       path,
       editlines,
-      this.projectPath,
-      this.excludedPath,
-    )
+      projectPath: this.projectPath,
+      excludedPattern: this.excludedPattern,
+    })
   }
 
   async runScript(name: string, scriptCmd: string) {
-    return await runScriptCore(name, scriptCmd, this.projectPath)
+    return await runScriptCore({
+      name,
+      scriptCmd,
+      projectPath: this.projectPath,
+    })
   }
 }
